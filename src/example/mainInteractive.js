@@ -34,6 +34,12 @@ let iterator = myProblem.interactiveSolve([
 
 iterator.next();
 iterator.next();
+iterator.next();
+iterator.next();
+iterator.next();
+iterator.next();
+iterator.next();
+iterator.next();
 
 
 

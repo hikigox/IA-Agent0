@@ -15,6 +15,7 @@ class CleanerProblem extends Problem {
      * @param {Object} solution 
      */
     goalTest(data) {
+
         let minX = min(data.world);
         if (data.interations >= this.env.maxIterations)
             return true;
@@ -34,9 +35,11 @@ class CleanerProblem extends Problem {
      * @param {*} action 
      * @param {*} agentID 
      */
+    // dice donde esta el agente y si ya encontor la meta elimina el valor de el ambiente
     update(data, action, agentID) {
         let map = data.world;
         let agentState = data.states[agentID];
+        let agentModel = data.models[agentID];
         if (action == "UP") {
             agentState.y -= 1;
         }
@@ -52,6 +55,9 @@ class CleanerProblem extends Problem {
         if (action == "TAKE") {
             map[agentState.y][agentState.x] = 0;
         }
+        agentModel[agentState.y][agentState.x] = 1;
+
+        // mira las iteraciones
         if (!data.interations) {
             data.interations = 1;
         } else {
@@ -71,15 +77,19 @@ class CleanerProblem extends Problem {
         let agentState = data.states[agentID];
         let x = agentState.x;
         let y = agentState.y;
+        let model = data.models[agentID]
         let result = [];
+
+        // es la perception del agente desde su pocicion hacia los sensores en todas las direcciones
         //LEFT
-        result.push(x > 0 ? map[y][x - 1] : 1);
+        result.push(x > 0 && model[y][x-1] < 1 ? map[y][x - 1] : 1);
+
         //UP
-        result.push(y > 0 ? map[y - 1][x] : 1);
+        result.push(y > 0 && model[y - 1][x] < 1 ? map[y - 1][x] : 1);
         //RIGTH
-        result.push(x < map[0].length - 1 ? map[y][x + 1] : 1);
+        result.push(x < map[0].length - 1 && model[y][x + 1] < 1 ? map[y][x + 1] : 1);
         //DOWN
-        result.push(y < map.length - 1 ? map[y + 1][x] : 1);
+        result.push(y < map.length - 1 && model[y + 1][x] < 1 ? map[y + 1][x] : 1);
 
         result = result.map(value => value > 0 ? 1 : 0);
 

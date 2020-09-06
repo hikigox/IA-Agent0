@@ -9,14 +9,17 @@ class Agent {
         this.state = null;
         this.perception = null
         this.table = {"default": 0};
+        this.model = null;
     };
 
     /**
      * Setup of the agent. Could be override by the class extension
      * @param {*} parameters 
      */
-    setup(initialState = { }) {
+    setup(initialState = { },model =[]) {
         this.initialState = initialState;
+        this.model = model;
+
     }
     /**
      * Function that receive and store the perception of the world that is sent by the agent controller. This data is stored internally
@@ -40,6 +43,7 @@ class Agent {
     getLocalName() {
         return this.id;
     }
+
 
    /**
      * Return the agent id

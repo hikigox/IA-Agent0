@@ -8,20 +8,22 @@ class CleanerAgent extends Agent {
     constructor(value) {
         super(value);
         //LEFT, UP, RIGHT, DOWN, CELL
+        // literal
         this.table = {
+            //LEFT,UP,RIGHT,DOWN
             "0,0,0,0,0": "UP",
             "0,0,0,1,0": "UP",
             "0,0,1,0,0": "UP",
-            "0,0,1,1,0": "LEFT",
-            "0,1,0,0,0": "LEFT",
+            "0,0,1,1,0": "UP",
+            "0,1,0,0,0": "RIGHT",
             "0,1,0,1,0": "RIGHT",
             "0,1,1,0,0": "LEFT",
             "0,1,1,1,0": "LEFT",
             "1,0,0,0,0": "UP",
-            "1,0,0,1,0": "RIGHT",
-            "1,0,1,0,0": "DOWN",
+            "1,0,0,1,0": "UP",
+            "1,0,1,0,0": "UP",
             "1,0,1,1,0": "UP",
-            "1,1,0,0,0": "RIGTH",
+            "1,1,0,0,0": "RIGHT",
             "1,1,0,1,0": "RIGHT",
             "1,1,1,0,0": "DOWN",
             "default": "TAKE"
@@ -33,9 +35,12 @@ class CleanerAgent extends Agent {
      * In this case, the state is just obtained as the join of the perceptions
      */
     send() {
+        // guarda la percepcion del agente
         let viewKey = this.perception.join();
+       // this.internalState = updatex();
+        // mira deacuerdo a la perception del agente cual accion va tomar
         if (this.table[viewKey]) {
-            return this.table[viewKey];
+           return this.table[viewKey];
         } else {
             return this.table["default"];
         }
