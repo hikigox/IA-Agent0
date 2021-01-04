@@ -39,3 +39,13 @@ Winner Smith
   As we still having the -1 in the problem matrix, we assume that agent could not solve the given problem.
   
   Now, try it yoursel!!!!
+
+Se resolvio 
+
+
+Modificar la tabla de reflejo simple, para que el agente pueda resolver el problema propuesto inicialmente.
+
+Implementar una versión de agente con modelo de entorno para resolver el mismo problema
+
+Implementar una versión de agente con modelo basado en metas, que resuelva el problema propuesto.
+
