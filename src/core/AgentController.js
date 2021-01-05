@@ -5,7 +5,7 @@ class AgentController {
         this.world0 = null;
         this.world = null;
         this.actions = [];
-        this.data = { states: {}, world: {},models:{} }
+        this.data = { states: {}, world: {},models:{},types:{} }
     }
     /**
      * Setup the configuration for the agent controller
@@ -40,6 +40,7 @@ class AgentController {
 
             this.agents[agent.getID()] = agent;
             this.data.states[agent.getID()] = state0;
+            this.data.types[agent.getID()] = agent.type;
             //TODO conver state0 to an inmutable object
             // inicializa el estadado inicial
             agent.setup(state0);

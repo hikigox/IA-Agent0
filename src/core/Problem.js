@@ -41,8 +41,13 @@ class Problem {
      * @param {*} agentClass 
      * @param {*} initialState 
      */
-    addAgent(agentID, agentClass, initialState) {
+    addAgent(agentID, agentClass, initialState, agentType = 0 )  {
         let agent = new agentClass(agentID);
+        if ((typeof agentType) !== "number"){
+            agent.type= agentType.type
+            agent.stateGoal = agentType.stateGoal
+
+        }
         this.controller.register(agent, initialState);
     }
     

@@ -40,21 +40,47 @@ class CleanerProblem extends Problem {
         let map = data.world;
         let agentState = data.states[agentID];
         let agentModel = data.models[agentID];
-        if (action == "UP") {
-            agentState.y -= 1;
+        let agentType = data.types[agentID];
+        if ( agentType == 1){
+
+            if (action == "UP") {
+
+                agentState.y -= 1;
+            }
+            if (action == "DOWN") {
+                agentState.y += 1;
+            }
+            if (action == "LEFT") {
+                agentState.x -= 1;
+            }
+            if (action == "RIGHT") {
+                agentState.x += 1;
+            }
+            if (action == "TAKE") {
+                map[agentState.y][agentState.x] = 0;
+            }
+
+
+        }else {
+            if (action == "UP") {
+                agentState.y -= 1;
+            }
+            if (action == "DOWN") {
+                agentState.y += 1;
+            }
+            if (action == "LEFT") {
+                agentState.x -= 1;
+            }
+            if (action == "RIGHT") {
+                agentState.x += 1;
+            }
+            if (action == "TAKE") {
+                map[agentState.y][agentState.x] = 0;
+            }
+
+
         }
-        if (action == "DOWN") {
-            agentState.y += 1;
-        }
-        if (action == "LEFT") {
-            agentState.x -= 1;
-        }
-        if (action == "RIGHT") {
-            agentState.x += 1;
-        }
-        if (action == "TAKE") {
-            map[agentState.y][agentState.x] = 0;
-        }
+
         agentModel[agentState.y][agentState.x] = 1;
 
         // mira las iteraciones
@@ -64,6 +90,10 @@ class CleanerProblem extends Problem {
             data.interations++;
         }
     }
+
+
+
+
 
     /**
      * Gives the world representation for the agent at the current stage.

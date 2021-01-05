@@ -10,6 +10,7 @@ class Agent {
         this.perception = null
         this.table = {"default": 0};
         this.model = null;
+
     };
 
     /**

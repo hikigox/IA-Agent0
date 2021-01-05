@@ -10,7 +10,7 @@ class CleanerAgent extends Agent {
         //LEFT, UP, RIGHT, DOWN, CELL
         // literal
         this.table = {
-            //LEFT,UP,RIGHT,DOWN
+            //LEFT,UP,RIGHT,DOWN,TAKE
             "0,0,0,0,0": "UP",
             "0,0,0,1,0": "UP",
             "0,0,1,0,0": "UP",
@@ -28,6 +28,9 @@ class CleanerAgent extends Agent {
             "1,1,1,0,0": "DOWN",
             "default": "TAKE"
         };
+        // 0 = model , 1 = model goal
+        this.type = 0;
+        this.stateGoal = {};
     }
 
     /**
@@ -37,15 +40,86 @@ class CleanerAgent extends Agent {
     send() {
         // guarda la percepcion del agente
         let viewKey = this.perception.join();
-       // this.internalState = updatex();
-        // mira deacuerdo a la perception del agente cual accion va tomar
-        if (this.table[viewKey]) {
-           return this.table[viewKey];
-        } else {
-            return this.table["default"];
+
+        if (this.type == 0){
+// mira deacuerdo a la perception del agente cual accion va tomar
+            if (this.table[viewKey]) {
+                return this.table[viewKey];
+            } else {
+                return this.table["default"];
+            }
+
+        }else if (this.type == 1){
+
+            return this.bestNextState(this.initialState,this.stateGoal,viewKey)
+
         }
+
     }
 
+    bestNextState(agentState, goalState,perseption){
+        let count= 0;
+        let result = "xd";
+        if (perseption == "1,1,1,1,1"){
+            return "TAKE";
+
+        }
+        perseption = perseption.split(",");
+
+
+
+        //UP
+        if ((perseption[1] !== "1")){
+          count= (Math.abs((goalState.x - agentState.x)) + Math.abs((goalState.y - (agentState.y -1 ))));
+          result = "UP";
+
+
+        }
+           //DOWN
+        if(perseption[3] !== "1"){
+            if(((Math.abs((goalState.x - agentState.x)) + Math.abs((goalState.y - (agentState.y +1 )))) < count ) || count == 0){
+                result= "DOWN"
+                count=(Math.abs((goalState.x - agentState.x)) + Math.abs((goalState.y - (agentState.y +1 ))));
+
+
+            }
+
+        }
+
+        //LEFT
+        if(perseption[0] !== "1"){
+            if(((Math.abs((goalState.x - (agentState.x - 1))) + Math.abs((goalState.y - (agentState.y)))) < count) || count == 0){
+                result= "LEFT"
+                count=(Math.abs((goalState.x - (agentState.x - 1))) + Math.abs((goalState.y - (agentState.y ))));
+
+
+            }
+
+        }
+
+        //RIGHT
+        if(perseption[2] !== "1"){
+            if(((Math.abs((goalState.x - (agentState.x + 1))) + Math.abs((goalState.y - (agentState.y ))))< count) || count == 0){
+                result= "RIGHT"
+
+
+            }
+        }
+
+
+
+
+
+
+return result;
+
+    }
+    /**
+     * Return the agent id
+     */
+    getType() {
+        return this.type;
+    }
 }
 
 module.exports = CleanerAgent;
